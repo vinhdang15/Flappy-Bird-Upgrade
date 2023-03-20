@@ -8,17 +8,18 @@ using Random = UnityEngine.Random;
 
 public class SentenceManager : MonoBehaviour
 {
-    public XPManager       m_xpManager;
-    public GameManager     m_gameManager;
-    public TextMeshProUGUI text;
-    int                    index;
+    public           GameManager     m_gameManager;
+    public           TextMeshProUGUI text;
+    [SerializeField] int             conditionSocre_1 = 7;
+    [SerializeField] int             conditionSocre_2 = 20;
+    int                              index;
     
-    public List<string> box1     = new List<string>();
-    public List<string> box2     = new List<string>();
-    public List<string> box3     = new List<string>();
-    public List<string> box1Temp = new List<string>();
-    public List<string> box2Temp = new List<string>();
-    public List<string> box3Temp = new List<string>();
+    [SerializeField] List<string> box1     = new List<string>();
+    [SerializeField] List<string> box2     = new List<string>();
+    [SerializeField] List<string> box3     = new List<string>();
+    [SerializeField] List<string> box1Temp = new List<string>();
+    [SerializeField] List<string> box2Temp = new List<string>();
+    [SerializeField] List<string> box3Temp = new List<string>();
     
     public void Awake()
     {
@@ -27,7 +28,7 @@ public class SentenceManager : MonoBehaviour
 
     public void OnEnable()
     {
-        if (m_gameManager.score <= 7)
+        if (m_gameManager.score <= conditionSocre_1)
         {
             if (box1Temp.Count == 0)
             {
@@ -42,7 +43,7 @@ public class SentenceManager : MonoBehaviour
             text.text = box1Temp[index];
             box1Temp.RemoveAt(index);
         }
-        else if (m_gameManager.score > 7 && m_gameManager.score >= 20)
+        else if (m_gameManager.score > conditionSocre_1 && m_gameManager.score >= conditionSocre_2)
         {
             if (box2Temp.Count == 0)
             {
@@ -80,11 +81,13 @@ public class SentenceManager : MonoBehaviour
 
 //Chaiyo, you can do better.
 //It's a beautiful day, let's try again.
+//Hello, long time no see.
     
-//Hello Tu, long time no see.
 //Chaiyo, you can do better.
-//Are you free for a coffee sometime in the next few weeks?
-
-//Happy new year em.
+//It's a beautiful day, let's try again.
 //Just wanted to send you a smile today.
+
+//Chaiyo, you can do better.
+//Just wanted to send you a smile today.
+//Great, but is that all? I think you can do better.
 //I believe in you! And unicorns. But mostly you!
