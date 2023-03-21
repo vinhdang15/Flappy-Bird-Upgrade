@@ -4,52 +4,43 @@ using UnityEngine;
 
 public class XPManager : MonoBehaviour
 {
-    public        GameObject       starBar;
-    public static Action           updateXP = delegate {  };
-    public        List<GameObject> listXP;
-    public        int              currentXP;
-    public        int              targetXP = 3;
-    public        int              level;
+    public GameObject       starBar;
+    public List<GameObject> listXP;
+    public int              level;
+    int                     currentXP;
+    int                     targetXP = 3;
+    
     public void OnEnable()
     {
-        updateXP  += AddXP;
         currentXP =  0;
         level     =  0;
-        for (int i = 0; i < listXP.Count; i++)
-        {
+        for (int i = 0; i < listXP.Count; i++) {
             listXP[i].SetActive(false);
         }
     }
 
-    public void AddXP()
-    {
+    public void AddXP(){
         starBar.SetActive(true);
         currentXP++;
-        if (level < 2)
-        {
-            if (currentXP >= targetXP)
-            {
+        if (level < 2) {
+            if (currentXP >= targetXP){
                 currentXP = 0;
                 level++;
             }
         
-            for (int i = listXP.Count-1; i >= 0; i--)
-            {
+            for (int i = listXP.Count-1; i >= 0; i--){
                 listXP[i].SetActive( i < currentXP);
             }
         }
-        if (level >= 2)
-        {
-            for (int i = listXP.Count-1; i >= 0; i--)
-            {
+        if (level >= 2){
+            for (int i = listXP.Count-1; i >= 0; i--) {
                 listXP[i].SetActive( true);
             }
         }
-
     }
 
     public void OnDisable()
     {
-        updateXP += AddXP;
+        starBar.SetActive(false);
     }
 }

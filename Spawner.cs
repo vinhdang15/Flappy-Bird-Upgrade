@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] float      minHeight  = -1.5f;
     [SerializeField] float      maxHeight  = 1.5f;
     [SerializeField] bool       isStoppingAtLevel;
-    [SerializeField] int        LevelCondition = 1;
+    [SerializeField] int        LevelStopSpawn = 2;
     void OnEnable()
     {
         StartCoroutine(SpawnLoop());
@@ -22,29 +22,23 @@ public class Spawner : MonoBehaviour
         StopAllCoroutines();
     }
 
-    public void Spawn()
-    {
+    public void Spawn(){
         GameObject Item = Instantiate(ObjectPrefab, transform.position, Quaternion.identity);
         Item.transform.parent   =  this.transform;
         Item.transform.position += Vector3.up * UnityEngine.Random.Range(minHeight, maxHeight);
         GameManager.OnAddObject(Item);
     }
 
-    private IEnumerator SpawnLoop()
-    {
+    private IEnumerator SpawnLoop(){
         yield return new WaitForSeconds(BeginSpwam);
-        while (true)
-        {
-            if (isStoppingAtLevel)
-            {
-                if (m_xpManager.level <= LevelCondition)
-                {
+        while (true){
+            if (isStoppingAtLevel){
+                if (m_xpManager.level < LevelStopSpawn){
                     Spawn();
                 }
                 Debug.Log(m_xpManager.level);
             }
-            else
-            {
+            else{
                 Spawn();
             }
             
